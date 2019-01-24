@@ -44,9 +44,10 @@ public class bookkeeper{
         for(int i = 0; i<x.length()-1;i++){
             char first = x.charAt(i);
             char second = x.charAt(i+1);           
-            if (first==second)
+            if (first==second){
                 count++;
-                // author(x);              
+                author(x);
+            }                              
         }
         return count;
     }
