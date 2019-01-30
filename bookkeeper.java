@@ -6,27 +6,31 @@ import java.util.ArrayList;
 
 public class bookkeeper{
     // list of pairs
-    private static ArrayList<Integer> pairCount = new ArrayList();
+    private static ArrayList<Integer> pairCount = new ArrayList<>();
     private static String outgoingFile;  
     private static int pairNum;
     private static File outFile;
     private static PrintWriter pw;
 
     public static void main(String[] args) throws IOException{ 
-        // allows for input from command line 
-        pairNum = Integer.parseInt(args[0]);                
-
+        // allows for input from command line
         if(args.length == 3){
+            pairNum = Integer.parseInt(args[0]);
             outgoingFile = args[2];
             String inComingFile = args[1];
             middleMan(pairNum,inComingFile,outgoingFile);            
         }    
         else if(args.length == 2){
+            pairNum = Integer.parseInt(args[0]);
             String inComingFile = args[1];
             middleMan(pairNum,inComingFile);            
         }
-        else if(args.length == 1)
-            middleMan(pairNum);     
+        else if(args.length == 1){
+            pairNum = Integer.parseInt(args[0]);
+            middleMan(pairNum);
+        }
+        else
+            middleMan();    
         
     }    
 
@@ -104,6 +108,30 @@ public class bookkeeper{
             System.out.println("There are " + finderCount + " words with " + pairNum + " two letter pairs.");
         } else
             System.out.println("You must at least have no pairs.");              
+    } 
+
+    // takes no arguments 
+    public static void middleMan() throws IOException {
+        System.out.println("Enter your words below,this program will count how many words there are with 3 two letter pairs. When you're done entering words type 'exit':");        
+        Scanner sc = new Scanner(System.in); 
+        while(sc.hasNextLine()){
+            String temp = sc.nextLine();
+            if(temp.equals("exit"))
+                break;
+            else{
+                int temp2 = counter3(temp);
+                pairCount.add(temp2);
+            }                                               
+        }        
+        int finderCount = 0;        
+        for(int i=0; i<pairCount.size();i++){
+            int temp = 3;
+            int temp2 = pairCount.get(i);
+            if(temp == temp2){
+                finderCount++;
+            }
+        }
+            System.out.println("There are " + finderCount + " words with 3 two letter pairs.");                      
     } 
 
         // counts the number of pairs in a string + adds words to file
